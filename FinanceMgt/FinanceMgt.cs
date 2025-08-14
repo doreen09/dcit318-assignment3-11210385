@@ -1,11 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace FinanceManagementSystem.Models
+namespace FinanceManagementSystem
 {
+ 
     public record Transaction(
         int Id,
-        DateOnly Date,
+        DateTime Date,
         decimal Amount,
         string Category
     );
+
+ 
+    public interface ITransactionProcessor
+    {
+        void Process(Transaction transaction);
+    }
 }
