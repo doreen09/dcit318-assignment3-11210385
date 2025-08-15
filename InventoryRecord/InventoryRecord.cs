@@ -14,7 +14,6 @@ public record InventoryItem(
     int Quantity,
     DateTime DateAdded) : IInventoryEntity;
 
-public record InventoryItem(int Id, string Name, int Quantity, DateTime DateAdded) : IInventoryEntity;
 
 public class InventoryLogger<T> where T : IInventoryEntity
 {
