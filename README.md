@@ -17,77 +17,92 @@ Tracks financial transactions, enforces data integrity, and supports multiple pa
   dotnet run
 
 
-### 2. Grading System
+### 2. Healthcare System
 
-Calculates student grades from a text file and assigns letter grades.
+Manages patient records and prescriptions using Collections and Generics for scalability and type safety.
 
 **Key Features:**
 
-- Reads students.txt file.
+- Generic repository Repository<T> for entity management.
 
-- Calculates total score and determines letter grade.
+- Classes: Patient and Prescription.
 
-- Handles missing/invalid data.
+- Uses Dictionary<int, List<Prescription>> to group prescriptions by patient.
 
+- Retrieves prescriptions by patient ID.
+
+- **How to Run:**
+  ```bash
+  cd Healthcare
+  dotnet run
+
+
+### 3. Warehouse Inventory Management System
+Uses collections, generics, and custom exception handling to manage product inventory..
+
+**Key Features:**
+
+- Marker interface IInventoryItem.
+
+- Product classes: ElectronicItem and GroceryItem.
+
+- Generic repository InventoryRepository<T> with custom exceptions:
+
+DuplicateItemException
+
+ItemNotFoundException
+
+InvalidQuantityException
+
+- Exception-safe inventory operations.
+
+
+- **How to Run:**
+  ```bash
+  cd WareHouse
+  dotnet run
+
+
+### 4. **School Grading System**  
+Reads student data from a .txt file, validates and processes it, and writes a report to a new file with assigned grades.
+
+- **Key Features:**
+-Student class with grading logic.
+
+- Custom exceptions:
+
+  InvalidScoreFormatException
+  MissingFieldException
+
+- File I/O using StreamReader and StreamWriter.
+
+- Generates a formatted report.
+  
 - **How to Run:**
   ```bash
   cd GradingSystem
   dotnet run
 
-
 **Note:** Ensure students.txt exists in the same folder.
 
-### 3. Inventory Record System
 
-Maintains records of items in stock.
+### 4. **Inventory System**  
+Captures inventory records using C# records, generics, and file operations for persistent storage.
 
-**Key Features:**
+- **Key Features:**
+- Immutable InventoryItem record implementing IInventoryEntity.
 
-- Uses a C# record type for immutability.
+- Generic InventoryLogger<T> for logging and saving data.
 
-- Stores Id, Name, Quantity, and DateAdded.
+- JSON or plain-text file storage.
 
-- Displays inventory in tabular form.
+- Loads data back into memory for verification.
 
-**How to Run:**
-- ```bash
-cd InventoryRecord
-dotnet run
-
-### 4. Student Registration System
-
-Registers students and displays stored data.
-
-**Key Features:**
-
-- Stores student information (Name, ID, Program).
-
-- Allows new entries via console input.
-
-- Displays all registered students.
-
-**How to Run:**
-- ```bash
-cd StudentRegistration
-dotnet run
-
-### 5. Library Management System
-
-Manages books, borrowers, and loans.
-
-**Key Features:**
-
-- Adds books and borrowers.
-
-- Issues and returns books.
-
-- Displays all records.
-
-**How to Run:**
-- ```bash
-cd LibraryManagement
-dotnet run
-
+- **How to Run:**
+  ```bash
+  cd GradingSystem
+  dotnet run
+  
 ## Requirements
 
 .NET SDK 6.0+
