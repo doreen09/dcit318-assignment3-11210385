@@ -10,4 +10,9 @@ namespace FinanceManagementSystem
         string Category
         );
 
+      public interface ITransactionProcessor
+    {
+        void Process(Transaction transaction);
+    }
+
 }
