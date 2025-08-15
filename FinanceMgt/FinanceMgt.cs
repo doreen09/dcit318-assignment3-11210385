@@ -114,7 +114,7 @@ namespace FinanceManagementSystem
         }
     }
 
-    public static class Program
+    public static class FinanceManagementApp
     {
         public static void Main()
         {
