@@ -62,9 +62,41 @@ namespace HealthcareSystem
 
     public class HealthSystemApp
     {
-        private Repository<Patient> _patientRepo = new Repository<Patient>();
-        private Repository<Prescription> _prescriptionRepo = new Repository<Prescription>();
-        private Dictionary<int, List<Prescription>> _prescriptionMap = new Dictionary<int, List<Prescription>>();
+        private Repository<Patient>
+        _patientRepo = new Repository<Patient>();
+        private Repository<Prescription>
+        _prescriptionRepo = new Repository<Prescription>();
+        private Dictionary<int, List<Prescription>>
+        _prescriptionMap = new Dictionary<int, List<Prescription>>();
+        
+
+         public void SeedData()
+        {
+            // Patients
+            _patientRepo.Add(new Patient(1, "John Doe", 30, "Male"));
+            _patientRepo.Add(new Patient(2, "Jane Smith", 25, "Female"));
+            _patientRepo.Add(new Patient(3, "Mark Lee", 40, "Male"));
+
+            // Prescriptions
+            _prescriptionRepo.Add(new Prescription(1, 1, "Paracetamol", DateTime.Today));
+            _prescriptionRepo.Add(new Prescription(2, 1, "Ibuprofen", DateTime.Today.AddDays(-2)));
+            _prescriptionRepo.Add(new Prescription(3, 2, "Amoxicillin", DateTime.Today.AddDays(-5)));
+            _prescriptionRepo.Add(new Prescription(4, 3, "Vitamin C", DateTime.Today));
+            _prescriptionRepo.Add(new Prescription(5, 2, "Cough Syrup", DateTime.Today.AddDays(-1)));
+        }
+
+        public void BuildPrescriptionMap()
+        {
+            _prescriptionMap.Clear();
+            foreach (var prescription in _prescriptionRepo.GetAll())
+            {
+                if (!_prescriptionMap.ContainsKey(prescription.PatientId))
+                {
+                    _prescriptionMap[prescription.PatientId] = new List<Prescription>();
+                }
+                _prescriptionMap[prescription.PatientId].Add(prescription);
+            }
+        }
     }    
 
 }
