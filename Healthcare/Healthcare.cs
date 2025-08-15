@@ -97,8 +97,8 @@ namespace HealthcareSystem
                 _prescriptionMap[prescription.PatientId].Add(prescription);
             }
         }
-        
-         public void PrintAllPatients()
+
+        public void PrintAllPatients()
         {
             foreach (var patient in _patientRepo.GetAll())
             {
@@ -131,5 +131,20 @@ namespace HealthcareSystem
         }
     }
   
+
+   public class HealthcareApp
+    {
+        public static void Main()
+        {
+            var app = new HealthSystemApp();
+
+            app.SeedData();
+            app.BuildPrescriptionMap();
+            app.PrintAllPatients();
+
+            Console.WriteLine("\nPrescriptions for Patient ID 2:");
+            app.PrintPrescriptionsForPatient(2);
+        }
+    }
 
 }
