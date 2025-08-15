@@ -28,7 +28,50 @@ namespace SchoolGradingSystem
         }
     }
 
+    
+    public class InvalidScoreFormatException : Exception
+    {
+        public InvalidScoreFormatException(string message) : base(message) { }
+    }
 
+    public class MissingFieldException : Exception
+    {
+        public MissingFieldException(string message) : base(message) { }
+    }
+
+    public class StudentResultProcessor
+    {
+        public List<Student> ReadStudentsFromFile(string inputFilePath)
+        {
+            var students = new List<Student>();
+
+            using (StreamReader reader = new StreamReader(inputFilePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var parts = line.Split(',');
+
+                    if (parts.Length != 3)
+                        throw new MissingFieldException($"Missing field in line: {line}");
+
+                    int id;
+                    if (!int.TryParse(parts[0], out id))
+                        throw new Exception($"Invalid ID format in line: {line}");
+
+                    string name = parts[1].Trim();
+
+                    int score;
+                    if (!int.TryParse(parts[2], out score))
+                        throw new InvalidScoreFormatException($"Invalid score format in line: {line}");
+
+                    students.Add(new Student(id, name, score));
+                }
+            }
+
+            return students;
+        }
+    }
 
 
 
