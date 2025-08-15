@@ -155,7 +155,45 @@ namespace WarehouseInventorySystem
 
         public InventoryRepository<ElectronicItem> ElectronicsRepo => _electronics;
         public InventoryRepository<GroceryItem> GroceriesRepo => _groceries;
+
+        public class WareHouseMgt
+        {
+            public static void Main()
+            {
+                var manager = new WareHouseManager();
+                manager.SeedData();
+
+                Console.WriteLine("Grocery Items:");
+                manager.PrintAllItems(manager.GroceriesRepo);
+
+                Console.WriteLine("\nElectronic Items:");
+                manager.PrintAllItems(manager.ElectronicsRepo);
+
+                Console.WriteLine("\nTesting exceptions:");
+
+             
+                try
+                {
+                    manager.ElectronicsRepo.AddItem(new ElectronicItem(1, "Laptop", 5, "HP", 12));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+
+            
+                manager.RemoveItemById(manager.GroceriesRepo, 99);
+
+             
+                try
+                {
+                    manager.ElectronicsRepo.UpdateQuantity(2, -5);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+        }
     }
-
-
-}
+} 
