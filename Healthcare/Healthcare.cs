@@ -68,9 +68,9 @@ namespace HealthcareSystem
         _prescriptionRepo = new Repository<Prescription>();
         private Dictionary<int, List<Prescription>>
         _prescriptionMap = new Dictionary<int, List<Prescription>>();
-        
 
-         public void SeedData()
+
+        public void SeedData()
         {
             // Patients
             _patientRepo.Add(new Patient(1, "John Doe", 30, "Male"));
@@ -97,6 +97,39 @@ namespace HealthcareSystem
                 _prescriptionMap[prescription.PatientId].Add(prescription);
             }
         }
-    }    
+        
+         public void PrintAllPatients()
+        {
+            foreach (var patient in _patientRepo.GetAll())
+            {
+                Console.WriteLine($"ID: {patient.Id}, Name: {patient.Name}, Age: {patient.Age}, Gender: {patient.Gender}");
+            }
+        }
+
+        public List<Prescription> GetPrescriptionsByPatientId(int patientId)
+        {
+            if (_prescriptionMap.ContainsKey(patientId))
+            {
+                return _prescriptionMap[patientId];
+            }
+            return new List<Prescription>();
+        }
+
+        public void PrintPrescriptionsForPatient(int id)
+        {
+            var prescriptions = GetPrescriptionsByPatientId(id);
+            if (prescriptions.Count == 0)
+            {
+                Console.WriteLine("No prescriptions found for this patient.");
+                return;
+            }
+
+            foreach (var p in prescriptions)
+            {
+                Console.WriteLine($"Prescription ID: {p.Id}, Medication: {p.MedicationName}, Date: {p.DateIssued.ToShortDateString()}");
+            }
+        }
+    }
+  
 
 }
