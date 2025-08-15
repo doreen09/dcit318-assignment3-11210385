@@ -28,7 +28,7 @@ namespace SchoolGradingSystem
         }
     }
 
-    
+
     public class InvalidScoreFormatException : Exception
     {
         public InvalidScoreFormatException(string message) : base(message) { }
@@ -73,6 +73,38 @@ namespace SchoolGradingSystem
         }
     }
 
+    public class GradingSystem
+    {
+        public static void Main()
+        {
+            try
+            {
+                var processor = new StudentResultProcessor();
 
+                string inputPath = "students.txt";
+                string outputPath = "report.txt";
 
+                var students = processor.ReadStudentsFromFile(inputPath);
+                processor.WriteReportToFile(students, outputPath);
+
+                Console.WriteLine("Report generated successfully.");
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"File error: {ex.Message}");
+            }
+            catch (InvalidScoreFormatException ex)
+            {
+                Console.WriteLine($"Score error: {ex.Message}");
+            }
+            catch (MissingFieldException ex)
+            {
+                Console.WriteLine($"Field error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+            }
+        }
+    }
 }
