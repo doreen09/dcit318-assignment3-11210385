@@ -59,8 +59,8 @@ namespace FinanceManagementSystem
             Balance -= transaction.Amount;
         }
     }
-    
-      public sealed class SavingsAccount : Account
+
+    public sealed class SavingsAccount : Account
     {
         public SavingsAccount(string accountNumber, decimal initialBalance)
             : base(accountNumber, initialBalance) { }
@@ -78,4 +78,49 @@ namespace FinanceManagementSystem
             }
         }
     }
+    
+    
+//integration
+    public class FinanceApp
+    {
+        private readonly List<Transaction> _transactions = new();
+
+        public void Run()
+        {
+            //instantiated savings account
+            var savings = new SavingsAccount("SA-001", 1000m);
+
+            //created three transactions
+            var t1 = new Transaction(1, DateTime.Today, 120m, "Groceries");
+            var t2 = new Transaction(2, DateTime.Today, 250m, "Utilities");
+            var t3 = new Transaction(3, DateTime.Today, 80m, "Entertainment");
+
+            //processors
+            ITransactionProcessor p1 = new MobileMoneyProcessor();
+            ITransactionProcessor p2 = new BankTransferProcessor();
+            ITransactionProcessor p3 = new CryptoWalletProcessor();
+
+            p1.Process(t1);
+            p2.Process(t2);
+            p3.Process(t3);
+
+            //applying transaction to the savingsaccount
+            savings.ApplyTransaction(t1);
+            savings.ApplyTransaction(t2);
+            savings.ApplyTransaction(t3);
+
+            //tracking transactions
+            _transactions.AddRange(new[] { t1, t2, t3 });
+        }
+    }
+
+    public static class Program
+    {
+        public static void Main()
+        {
+            var app = new FinanceApp();
+            app.Run();
+        }
+    }
+
 }
