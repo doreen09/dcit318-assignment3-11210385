@@ -44,7 +44,7 @@ namespace HealthcareSystem
         }
     }
 
-     public class Prescription
+    public class Prescription
     {
         public int Id;
         public int PatientId;
@@ -59,4 +59,12 @@ namespace HealthcareSystem
             DateIssued = dateIssued;
         }
     }
+
+    public class HealthSystemApp
+    {
+        private Repository<Patient> _patientRepo = new Repository<Patient>();
+        private Repository<Prescription> _prescriptionRepo = new Repository<Prescription>();
+        private Dictionary<int, List<Prescription>> _prescriptionMap = new Dictionary<int, List<Prescription>>();
+    }    
+
 }
